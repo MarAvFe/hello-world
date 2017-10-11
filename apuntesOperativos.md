@@ -12,8 +12,8 @@ Los Sistemas Operativos son:
 
 # Historia
 ### Década de los 50's
-Se utilizaban máquinas dedicadas con una **única tarea** y no tenían almacenamiento.
-Se conducían por medio de **tarjetas perforadas**.
+Se utilizaban máquinas dedicadas con una __única tarea__ y no tenían almacenamiento.
+Se conducían por medio de __tarjetas perforadas__.
 Solo de podía ejecutar un trabajo a la vez, por lo que todo se reposaba sobre una cola. La salida era por medio de una sola pantalla, o por medio de cintas de papel.
 
 Existían lenguajes de programación con sus bibliotecas de funciones. También los compiladores, sin embargo estas herramientas había que configurarlas cada ejecución de la computadora.
@@ -173,7 +173,33 @@ Nacen ciertas soluciones para mejorar el uso de los recursos y el tiempo.
    - Tipos
      - Binarios: [-n,1]
      - Contadores: [-n,n]
-   - Deadlock
+   - Deadlock: Es impredecible
+     - Se da cuando hay n procesos con m recursos y de alguna forma ocurrió.
+     - Condiciones necesarias para que ocurra un deadlock:
+       - Exclusión mutua: Debido al bloqueo de los procesos.
+       - Hold and wait: cuando un proceso retiene los recursos que ya tiene mientras espera por otros.
+       - No-Apropiativo: El recurso
+       - Espera circular: Los procesos dependen entre si de manera circular.
+     - Acciones para manejarlos
+       - __Técnica del avestruz__: ignorar los deadlocks. El usuario se hace responsable de sus propios deadlocks.
+       - __Prevención__: Nunca ocurre un deadlock si se aplica esta técnica. Consiste en eliminar alguna de las condiciones.
+         - Exclusión mutua: No se puede elimiar pues es un principio de la sicronización.
+         - Hold and wait
+           1. Recursos a priori: Entregar todos los recursos desde el inicio. Esto es poco eficiente, no asegura el progreso del proceso y se da subutilización de recursos. Da pie a starvation porque puede que nunca estén disponibles sus recursos necesarios.
+           2. Devolver un recurso para usar otro: Más posible, pero no sirve en todos los casos, pues a veces se requieren múltiples recursos simultáneamente.
+         - No apropiativo
+           - Un recurso apropiativo implica que se requiera guardar el estado antes de apropiarme de él.
+           - No todos los recursos son apropiativos.
+         - Espera circular: Quitar ciclos a la hora de pedir recursos. Se hace con una asignación jerárquica de recursos que establece un tipo de recursos para todo lo que un proceso pueda pedir. A los procesos solo se les dan los recursos de un tipo mayor al que tengan.
+       - __Evasión__: Vivimos con el deadlock, pero evitamos todo lo que se le parezca.
+         - Cuando procesos piden recursos, simula la entrega de recursos para predecir si puede suceder un deadlock.
+         - Algoritmo del banquero
+           1. Petición de recursos
+           2. Simulación de entrega de recursos donde evalúa si todos los procesos pueden terminar con tal petición, para así dejar al SO en un estado seguro.
+         - Esta simulación conlleva a demasiado overhead.
+       - __Detección__: Puede ocurrir el deadlock y se detecta
+       - __Recuperación__:
+
 
 
 ---
@@ -183,9 +209,9 @@ Nacen ciertas soluciones para mejorar el uso de los recursos y el tiempo.
 Bloquea ciertos procesos para asegurar la correcta ejecución de un proceso.
 
 ### Características
-1. **Exclusión Mutua**: Asegura que si un proceso se encuentra dentro de la región crítica, nadie más estará dentro de la región crítica.
-2. **Progreso**: Todo proceso puede entrar en la región crítica si no hay otro en la región crítica.
-3. **Espera Finita**: Todo proceso que deba esperar por un recurso, se le asignará el recurso eventualmente.
+1. __Exclusión Mutua__: Asegura que si un proceso se encuentra dentro de la región crítica, nadie más estará dentro de la región crítica.
+2. __Progreso__: Todo proceso puede entrar en la región crítica si no hay otro en la región crítica.
+3. __Espera Finita__: Todo proceso que deba esperar por un recurso, se le asignará el recurso eventualmente.
 
 #### Región Crítica
 Segmento de código capaz de colisionar en ejecución con otro proceso.
@@ -231,10 +257,10 @@ Segmento de código capaz de colisionar en ejecución con otro proceso.
 - Líneas llenas
 
 #### Productor
-Escribe en el buffer, en una **línea vacía**.
+Escribe en el buffer, en una __línea vacía__.
 
 #### Consumidor
-Lee del buffer, de una **línea llena**.
+Lee del buffer, de una __línea llena__.
 ```
 ╔═══════════╗     ╔════════╗     ╔════════════╗
 ║ Productor ║────>║ Buffer ║────>║ Consumidor ║
@@ -257,10 +283,10 @@ V(lineasLlenas)      V(lineasVacias)
 - Líneas llenas
 
 #### Productor
-Escribe en el buffer, en una **línea vacía**.
+Escribe en el buffer, en una __línea vacía__.
 
 #### Consumidor
-Lee del buffer, de una **línea llena**.
+Lee del buffer, de una __línea llena__.
 ```
 ╔═══════════╗                     ╔════════════╗
 ║ Productor ║──╗              ╔──>║ Consumidor ║
@@ -299,3 +325,78 @@ t       8
 T   10  8.8
 
 ```
+
+---
+
+## Administración de Memoria
+1. MultiProgramming with Fixed Tasks (MFT)
+1. MFT Dinámico
+3. Particiones dinámicas
+ - No importa el tipo de proceso
+ - Se asigna según petición
+ - Se van creando espacios (huecos) en la memoria para asignarlos
+ - Partición: [registroBase,registroLimite] almacenado en el PCB
+ - Selección de espacio:
+   - First-Fit: Selecciona el primer espacion con memoria suficiente.
+   - Best-Fit: Selecciona donde se desperdicie la menor cantidad de memoria.
+   - Worst-Fit: En el espacio más grande. Otros procesos pueden aprovechar el espacio libre.
+
+#### Fragmentación
+Cuando existen separaciones entre espacios asignados de memoria. Un espacio libre demasiado pequeño es muerto pues es atípico que un proceso quepa en tal espacio. Cuando existen muchos de estos espacios, se está desperdiciando memoria.
+
+##### Tipos
+- Externa: Cuando el espacio libre está entre particiones asignadas.
+- Interna: Cuando el espacio libre está dentro de una partición. Este espacio libre no puede ser asignado a nadie más.
+
+##### Solución
+La __Compactación__ o (burping) consiste en reacomodar los procesos sobre la memoria para
+
+## Paginación
+__Objetivo__: Que un proceso no necesite estar contínuo para poder estar en memoria.
+Tiene un tamaño de página
+La cantidad de páginas que requiere un proceso es la cantidad de memoria/tamaño de página.
+
+Dado un tamaño de página de 100, se tiene un proceso de 283 bytes. Por lo tanto 283/100=3. Debido a esto, las primeras dos páginas estarán llenas y la tercera quedará fragmentada. Esto ocasiona fragmentación interna.
+El resultado son 3 páginas lógicas, que son las divisiones de un proceso y 3 páginas físicas que son los espacios en memoria donde se ubican realmente las páginas. Para ello se efecuta un mapeo de páginas físicas y lógicas
+
+Este mapeo se efectúa en la tabla de páginas, que se almacena en la memoria. Es administrada por la Memory Management Unit (MMU). Esta se encarga de resolver las direcciones físicas de memoria al acceder a algún espacio en memoria del proceso.
+
+TLB: Caché para tabla de páginas
+
+## Memoria virtual
+Permite reservar un espacio del disco --> Es la memoria principal
+- Premite que un proceso no necesite estar completo en memoria para poderse ejecutar. Se almacena en memoria virtual una o varias páginas del proceso, para tener en memoria física solo las páginas requeridas para ejecutar un proceso en determinado momento. De esta manera se pueden ejecutar más procesos en memoria aunque sean de gran tamaño.
+
+### Paginación por *demanda*
+Al ejecutar un proceso, se cargan todas las páginas del proceso a memoria virtual. Con paginación por demanda, se permite solo subir a memoria física las páginas que el proceso necesite.
+- __Demanda pura__: Cuando un proceso empieza sin tener ninguna página en memoria.
+- __Page fork__: Cuando un proceso requiere una página que está en memoria virtual y la carga a memoria física.
+- __Overlapping__: Intercambio de páginas de memoria física a virtual
+- __Page Fault__: Cuando el sistema operativo no encuentra una página en memoria virtual.
+```
+// Qué sucede al haber un page fault
+╔═════════════════╗       ╔════╗
+║ PagLog | offset ║   ╔═══║ SO ║════╗3
+╚═════════════════╝   ║   ╚════╝    v
+   1║  ╔════════════╗ ║    ╔════════════╗
+    ╚═>║ Page Table ║═╝2   ║ Page Table ║
+<══════╚════════════╝      ╚════════════╝
+    6       ^                      4║ ^
+            ║                       ║ |4a
+           5║    ╔════════════╗     ║ |
+            ╚════║ MemoriaFís ║<════╝ |
+                 ╚════════════╝-------╝
+1: Pide página de proceso
+2: Page Fault
+3: Buscar en disco
+4: Subir a memoria
+4a. Bajar página
+5: Actualizar tabla de páginas
+6: Reinicia instrucción
+```
+
+AMT = p * pt + (1-p) * vmt
+p: probabilidad de pageFault
+pt: pageFault time
+AMT: Tiempo de acceso a memoria
+vmt: Tiempo promedio de acceso a memoria
