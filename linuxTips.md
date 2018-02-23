@@ -188,3 +188,4 @@ vim file1.md
 - [Linux and Shell Basics](https://coderwall.com/p/kubxjq/linux-and-bash-shell-basics)
 - [Reference .bashrc](https://github.com/bt3gl/Dotfiles-and-Bash-Examples/blob/master/configs/bashrc)
 - [Scripting refs](https://coderwall.com/p/teggxa/bash-shell-script-quick-cheat-sheet)
+- [Edit Message Of The Day](https://ownyourbits.com/2017/04/05/customize-your-motd-login-message-in-debian-and-ubuntu/)
