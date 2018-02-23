@@ -95,7 +95,9 @@ NC="\e[m" # Color Reset
 #  \nnn    the character corresponding to the octal number nnn
 #  \\  a backslash
 #  \[  begin a sequence of non-printing characters, which could be used to embed a terminal control sequence into the prompt
-PS1='\[\e[1;32m\]\t \[\e[1;35m\]\u\[\e[1;34m\] \W\a\[\033[00m\]\$ '
+
+#PS1='\[\e[1;32m\]\t \[\e[1;35m\]\u\[\e[1;34m\] \W\a\[\033[00m\]\$ '
+PS1='\[\e[1;32m\]┌─\t \[\e[1;35m\]\u\[\e[1;34m\] \W\a/\n\[\e[1;32m\]└\[\033[    00m\]\$ '
 
 
 unset color_prompt force_color_prompt
