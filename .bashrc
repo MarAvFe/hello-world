@@ -97,8 +97,21 @@ NC="\e[m" # Color Reset
 #  \[  begin a sequence of non-printing characters, which could be used to embed a terminal control sequence into the prompt
 
 #PS1='\[\e[1;32m\]\t \[\e[1;35m\]\u\[\e[1;34m\] \W\a\[\033[00m\]\$ '
-PS1='\[\e[1;32m\]┌─\t \[\e[1;35m\]\u\[\e[1;34m\] \W\a/\n\[\e[1;32m\]└\[\033[    00m\]\$ '
+#PS1='\[\e[1;32m\]┌─\t \[\e[1;35m\]\u\[\e[1;34m\] \W\a/\n\[\e[1;32m\]└\[\033[    00m\]\$ '
 
+parse_git_branch() {
+	git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/[\1]/'
+}
+
+isRoot(){
+ 	if [ $UID -eq 0 ]; then
+		echo -e "${BWhite}${On_Red}--#${NC}" | tee
+	else
+		echo -e "${White}\$${NC}" | tee
+	fi
+}
+
+PS1='\[\e[0;32m\]┌─\t \[\e[0;35m\]\u \e[0;34m(\e[1;33m\j\e[0;34m)\[\e[1;34m\] \W \[\e[0;30m\]$(parse_git_branch)\n\[\e[0;32m\]└$(isRoot) '
 
 unset color_prompt force_color_prompt
 
