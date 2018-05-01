@@ -35,6 +35,13 @@ alias df='df -kTh'
 alias bc="bc -l"
 alias ping="ping -c 5"
 
+# == start Docker aliases
+alias dockl='docker ps -l -q'
+alias dockpsa='docker ps -a'
+alias dockimg='docker images'
+alias dockclean='docker stop $(docker ps -aq) ; docker rm $(docker ps -aq)'
+# == end Docker aliases
+
 alias cd..="cd .."
 alias virc="vim ~/.bashrc"
 alias sorc="source ~/.bashrc"
